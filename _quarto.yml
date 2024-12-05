@@ -1,0 +1,19 @@
+project:
+  type: website
+
+website:
+  title: "Medhat Farwati's Website"
+  navbar:
+    left:
+      - text: Home
+        href: index.qmd
+      - text: About
+        href: about.qmd
+      - text: Data Analysis
+        href: analysis.qmd
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 2
