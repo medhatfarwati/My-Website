@@ -2,8 +2,6 @@
 title: "Data Analysis"
 ---
 
-# Data Analysis
-
 This section will contain detailed analysis and visualizations related to **Project B** from the **CRSP 431 Class**.
 
 ### Coming Soon

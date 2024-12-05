@@ -2,8 +2,6 @@
 title: "About Me"
 ---
 
-# About Me
-
 Hi! I'm **Medhat Farwati**, a CRSP student at **Case Western Reserve University** and a **Cardiology Fellow** at the **Cleveland Clinic Main Campus**.
 
 This website is dedicated to showcasing my work in data analysis and research. I aim to use this platform to share insights, analyses, and findings, particularly those related to Project B and my professional endeavors.

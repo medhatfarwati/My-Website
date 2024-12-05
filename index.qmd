@@ -1,8 +1,6 @@
 ---
-title: "Welcome to My Website"
+title: "Welcome to Medhat Farwati's Website"
 ---
-
-# Welcome to Medhat Farwati's Website
 
 Hi, I am **Medhat Farwati**, currently a CRSP student at **Case Western Reserve University** and a **Cardiology Fellow** at the **Cleveland Clinic Main Campus**.
 
