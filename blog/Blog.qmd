@@ -1,0 +1,17 @@
+---
+date: "2024-12-12"
+categories: ["Research", "Data Analysis"]
+format:
+  html:
+    toc: true
+---
+
+# Building My Data Analysis Dashboard  
+
+Creating a data analysis dashboard has been one of the most rewarding parts of my work. The goal was to design an interactive platform that presents key insights from Project B in a visually engaging and intuitive way. I built the dashboard using Quarto, R, and various data visualization libraries like **ggplot2** and **patchwork**. This allowed me to integrate statistical models, data summaries, and interactive charts into a single, user-friendly interface.
+
+The development process began with **data cleaning and preparation** using the NHANES dataset. After filtering and transforming variables of interest, I framed several hypotheses to test through the dashboard. These included examining how BMI predicts LDL cholesterol, adjusting for factors such as gender, marital status, and race/ethnicity. The dashboard was designed to allow users to explore these relationships through interactive filters and visual summaries.
+
+**Key analyses performed** included regression modeling, hypothesis testing, and data visualizations such as histograms, boxplots, and scatterplots. By embedding these interactive features, the dashboard enables users to explore the data in depth. While some hypotheses, like BMI’s effect on LDL cholesterol, yielded limited predictive power, the process provided valuable insights into the complexities of real-world health data.
+
+Building this dashboard was not just a technical challenge but also a creative endeavor. It combined my passion for research with an appreciation for design and storytelling through data. As I continue developing the dashboard, I hope it will serve as both a personal learning project and a useful tool for sharing research findings in a more accessible and engaging way. Stay tuned for future updates and enhancements!

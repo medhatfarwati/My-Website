@@ -12,6 +12,8 @@ website:
         href: about.qmd
       - text: Education & Training
         href: Education_Training.qmd
+      - text: Blog
+        href: blog/Blog.qmd
       - text: Study 1 Analyses
         href: study 1 analyses.qmd
       - text: Study 2 Analyses

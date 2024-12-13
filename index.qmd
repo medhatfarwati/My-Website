@@ -4,6 +4,8 @@ format: html
 
 # Welcome to Medhat Farwati's Website  
 
+![](images/my_photo.jpg){style="border-radius:50%;" width="200"}
+
 The purpose of this website is to showcase my work in **data analysis**, **research**, and **clinical insights**. It highlights projects from **CRSP 431 Project B** and future projects related to **cardiology** and **medical research**.
 
 Feel free to explore the site for updates on ongoing projects, analyses, and research findings.
