@@ -1,0 +1,35 @@
+---
+format: html
+---
+
+# Education & Training
+
+---
+
+## **Education**
+| Year(s)      | Degree   | Field of Study  | Institution                          |
+|--------------|-----------|------------------|--------------------------------------|
+| 2009-2015   | M.D.     | Medicine         | University of Aleppo, Aleppo, Syria |
+
+---
+
+## **Postdoctoral Training**
+**Includes Residency and Fellowship**
+
+| Year(s)      | Title                    | Specialty/Discipline   | Institution                                |
+|--------------|----------------------------|-------------------------|--------------------------------------------|
+| 2024-present | Master’s Candidate        | Master of Science (MSc) | Case Western Reserve University, Cleveland, OH |
+| 2022-present | Fellow                    | Cardiovascular Medicine | Cleveland Clinic Foundation, Cleveland, OH |
+| 2019-2022    | Resident                  | Internal Medicine       | Cleveland Clinic Foundation, Cleveland, OH |
+| 2020         | Clinical Scholar          | Internal Medicine       | Cleveland Clinic Foundation, Cleveland, OH |
+| 2019-2021    | Research Collaborator     | Cardiovascular Medicine | Mayo Clinic, Rochester, MN                 |
+| 2018-2019    | Research Fellow           | Cardiovascular Medicine | Mayo Clinic, Rochester, MN                 |
+| 2017-2018    | Research Trainee          | Cardiovascular Medicine | Mayo Clinic, Rochester, MN                 |
+
+---
+
+## **Current Licensure & Board Certification**
+| Year(s)      | License                          |
+|--------------|----------------------------------|
+| 2021-present | Ohio State Medical License (MD) |
+| 2022-present | Certified in Internal Medicine  |

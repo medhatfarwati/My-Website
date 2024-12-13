@@ -1,0 +1,249 @@
+---
+editor: visual
+format: html
+---
+
+# Overview
+
+This page presents the analyses for **Study 2**, focusing on statistical tests and visualizations based on the NHANES dataset.
+
+**Research Aim for Study 2**: To investigate whether BMI (key predictor) predicts LDL (quantitative outcome) while (possibly) adjusting for gender, marital status, and race/ethnicity as covariates
+
+------------------------------------------------------------------------
+
+## A. Data Cleaning and Preparation
+
+We followed the same steps in Study 1 to arrive at "clean_data" first
+
+```{r, warning=FALSE, message=FALSE}
+# Load necessary libraries
+library(tidyverse)
+library(broom)
+
+# Ensure clean data is loaded
+clean_data <- readRDS("data/clean_data.Rds")
+```
+
+Then, we will filter to include only complete cases in our predictor (BMI) and outcome (LDL), this will create "complete_data"
+
+```{r}
+# Load necessary libraries
+library(tidyverse)
+
+# Create a new dataset with complete cases for BMI and LDL
+complete_data <- clean_data %>%
+  filter(!is.na(BMI) & !is.na(LDL))
+
+# Save the new dataset as RDS
+if (!dir.exists("data")) {
+  dir.create("data")
+}
+
+saveRDS(complete_data, "data/complete_data.Rds")
+
+# View summary of the new dataset
+summary(complete_data)
+
+```
+
+**#CODEBOOK:**
+
+Same as codebook for Study 1
+
+## B. Analysis
+
+```{r}
+library(tidyverse)
+
+set.seed(1992) 
+
+training_sample <- complete_data |> slice_sample(prop = 0.75)
+
+test_sample <- 
+    anti_join(complete_data, training_sample, by = "SEQN")
+```
+
+We will visualize our outcome as follows:
+
+```{r}
+
+ # Load necessary libraries
+library(tidyverse)
+library(patchwork)
+
+# Ensure Dataset Exists
+if (!exists("training_sample")) {
+  training_sample <- readRDS("data/training_sample.Rds")
+}
+
+# 1. Histogram of LDL
+histogram_LDL <- ggplot(training_sample, aes(x = LDL)) +
+  geom_histogram(binwidth = 10, fill = "skyblue", color = "black", alpha = 0.7) +
+  labs(
+    title = "LDL Distribution (Original Scale)",
+    x = "LDL (mg/dL)",
+    y = "Count"
+  ) +
+  theme_minimal()
+
+# Print Histogram
+print(histogram_LDL)
+
+# 2. Boxplot of LDL
+boxplot_LDL <- ggplot(training_sample, aes(y = LDL)) +
+  geom_boxplot(fill = "lightgreen", color = "black", alpha = 0.7) +
+  labs(
+    title = "LDL Boxplot (Original Scale)",
+    y = "LDL (mg/dL)"
+  ) +
+  theme_minimal()
+
+# Print Boxplot
+print(boxplot_LDL)
+
+# 3. Q-Q Plot for Normality
+qqnorm(training_sample$LDL, main = "Q-Q Plot of LDL")
+qqline(training_sample$LDL, col = "red")
+
+```
+
+The histogram and Q-Q plot suggest non-normality in the LDL distribution. To address this, we will apply a log-transformation and visualize the data as follows:
+
+```{r}
+# Add a log-transformed LDL column to the training sample
+training_sample <- training_sample %>%
+  mutate(log_LDL = log(LDL))
+
+# Histogram of Log-Transformed LDL
+ggplot(training_sample, aes(x = log_LDL)) +
+  geom_histogram(binwidth = 0.2, fill = "lightblue", color = "black", alpha = 0.7) +
+  labs(
+    title = "Log-Transformed LDL Distribution",
+    x = "Log(LDL)",
+    y = "Count"
+  ) +
+  theme_minimal()
+
+```
+
+As we can see, this improved symmetry and reduced the influence of outliers, wo we will proceed with the log transformed LDL.
+
+## C. Model Fitting
+
+We will fit two models: A full model with all predictors (BMI, gender, marital_status, race_ethnicity), we will name it m1. A subset model with only the key predictor (BMI), we will name it m2.
+
+1.  Full Model (m1)
+
+```{r}
+# Full Model: Log-Transformed LDL with All Predictors
+m1 <- lm(log_LDL ~ BMI + gender + marital_status + race_ethnicity, data = training_sample)
+
+# Summary of the Full Model
+summary(m1)
+
+```
+
+2.  Subset model (m2):
+
+```{r}
+# Subset Model: Log-Transformed LDL with Only BMI
+m2 <- lm(log_LDL ~ BMI, data = training_sample)
+
+# Summary of the Subset Model
+summary(m2)
+
+```
+
+## D. Model Assessment and Comparison
+
+Diagnostic plot for m1:
+
+```{r}
+# Diagnostic Plots for Full Model
+par(mfrow = c(2, 2))
+plot(m1, main = "Diagnostics: Full Model (Log-Transformed LDL)")
+
+```
+
+Diagnostic plot for m2:
+
+```{r}
+# Diagnostic Plots for Subset Model
+par(mfrow = c(2, 2))
+plot(m2, main = "Diagnostics: Subset Model (Log-Transformed LDL)")
+
+```
+
+1.  In-sample assessment of m1 and m2:
+
+```{r}
+# Load library for performance comparison
+library(performance)
+
+# Compare In-Sample Performance
+compare_performance(m1, m2)
+
+```
+
+Interpretation:
+
+The in-sample comparison shows that m1 (full model) has a slightly better fit compared to m2 (subset model with only BMI) based on lower AIC (1874.6 vs. 1880.6) and slightly lower RMSE (0.343 vs. 0.344). However, the R² values for both models are extremely low (0.008 for m1 and near zero for m2), indicating that neither model explains much variance in log-transformed LDL. The adjusted R² values further confirm this lack of predictive power for both models.
+
+2.  Holdout assessment of m1 and m2:
+
+```{r, warning=FALSE}
+# Generate Predictions on Test Sample
+pred_m1 <- predict(m1, newdata = test_sample)
+pred_m2 <- predict(m2, newdata = test_sample)
+
+# Back-transform Predictions (Exponentiate to Original LDL Scale)
+pred_m1_backtransformed <- exp(pred_m1)
+pred_m2_backtransformed <- exp(pred_m2)
+
+# Calculate RMSE and R-Squared for Each Model
+library(Metrics)
+
+# RMSE
+rmse_m1 <- rmse(test_sample$LDL, pred_m1_backtransformed)
+rmse_m2 <- rmse(test_sample$LDL, pred_m2_backtransformed)
+
+# R-Squared
+rsq_m1 <- cor(test_sample$LDL, pred_m1_backtransformed)^2
+rsq_m2 <- cor(test_sample$LDL, pred_m2_backtransformed)^2
+
+# Display Results
+data.frame(
+  Model = c("Full Model (m1)", "Subset Model (m2)"),
+  RMSE = c(rmse_m1, rmse_m2),
+  R_Squared = c(rsq_m1, rsq_m2)
+)
+
+```
+
+Interpretation:
+
+In the test sample, both m1 (full model) and m2 (subset model with BMI only) perform similarly, with nearly identical RMSE values (36.29 for m1 vs. 36.27 for m2), indicating comparable predictive accuracy. However, the R² values for both models are extremely low (0.0014 for m1 and 0.00004 for m2), suggesting that neither model effectively predicts LDL in the holdout sample. This highlights that both models explain virtually no variance in LDL, even after accounting for the predictors.
+
+## E. Model Selection
+
+Given the results above:
+
+1.  Both models (m1 and m2) show similarly poor predictive performance in both the in-sample and holdout sample evaluations.
+2.  We will choolse the simpler model (m2), which includes only BMI because it performs almost identically to m1 but avoids the complexity of including additional predictors that do not improve prediction.
+
+## F. Answering the Research Question
+
+Using m2 (BMI-only model), the results suggest that BMI is not a strong predictor of LDL levels. The near-zero R² value indicates that BMI alone explains an extremely small proportion of the variability in LDL. This implies that other unmeasured factors may play a larger role in determining LDL levels.
+
+## G. Study Limitations
+
+1.  Low Variance Explained: Both models (m1 and m2) explain almost no variability in LDL levels (R² ≈ 0).
+2.  Missing Predictors: Important factors like diet, physical activity, and medication use were not included, potentially driving LDL variability.
+3.  Measurement Errors: BMI or LDL measurements may contain inaccuracies affecting the model's fit.
+4.  Population Homogeneity: The dataset may lack diversity, limiting the model's ability to generalize.
+
+## H. Next Steps
+
+1.  Expand Predictors: Incorporate variables like diet, physical activity, and family history.
+2.  Explore Nonlinear Models: Investigate interactions and non-linear effects to better capture relationships.
+3.  Validation: Test the model on an independent dataset for better generalizability.

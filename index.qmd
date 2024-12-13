@@ -1,11 +1,10 @@
 ---
-title: "Welcome to Medhat Farwati's Website"
+format: html
 ---
 
-Hi, I am **Medhat Farwati**, currently a CRSP student at **Case Western Reserve University** and a **Cardiology Fellow** at the **Cleveland Clinic Main Campus**.
+# Welcome to Medhat Farwati's Website  
 
-The purpose of this website is to showcase data analyses for **Project B** as part of the **CRSP 431 Class**. In the future, this site will also host additional analyses, insights, and visualizations related to the field of cardiology and beyond.
+The purpose of this website is to showcase my work in **data analysis**, **research**, and **clinical insights**. It highlights projects from **CRSP 431 Project B** and future projects related to **cardiology** and **medical research**.
 
-Feel free to explore and follow along with the progress of the project. Stay tuned for updates!
+Feel free to explore the site for updates on ongoing projects, analyses, and research findings.
 
-------------------------------------------------------------------------

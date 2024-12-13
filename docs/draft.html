@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>About Me – Medhat Farwati’s Website</title>
+<title>Draft – Medhat Farwati’s Website</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -92,7 +92,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./about.html" aria-current="page"> 
+    <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
@@ -126,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">About Me</h1>
+<h1 class="title">Draft</h1>
 </div>
 
 
@@ -143,13 +143,33 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><img src="images/my_photo.jpg" class="img-fluid" style="border-radius:50%;" width="200"></p>
-<p>Hi! I’m <strong>Medhat Farwati</strong>, a CRSP student at <strong>Case Western Reserve University</strong> and a <strong>Cardiology Fellow</strong> at the <strong>Cleveland Clinic Main Campus</strong>.</p>
-<p>This website is dedicated to showcasing my work in data analysis and research. I aim to use this platform to share insights, analyses, and findings, particularly those related to Project B and my professional endeavors.</p>
-<p>Feel free to connect with me to collaborate or learn more about my work!</p>
-<p><strong>Email:</strong> farwatm@ccf.org</p>
-<p><a href="https://x.com/medhatfarwati?prefetchTimestamp=1734045886917">My X (Twitter) Profile</a></p>
-<p><a href="https://www.linkedin.com/in/medhat-farwati-42588216b">My LinkedIn Profile</a></p>
+<p><strong>#Analysis 1: Compare Two Means/Medians Using Independent Samples</strong></p>
+<p>Research Question: Is there a difference in mean LDL-C between males and females?</p>
+<p>We will use the following code (graph first, then t-test):</p>
+<p><code>{r}  # Load necessary libraries library(tidyverse)  # Create Boxplot with Smaller and More Subtle Dots ggplot(clean_data, aes(x = gender, y = LDL, fill = gender)) +   geom_boxplot(alpha = 0.7, outlier.color = "red", outlier.size = 2) +   geom_jitter(aes(color = gender), width = 0.1, alpha = 0.2, size = 1) +   scale_fill_brewer(palette = "Set2") +   scale_color_brewer(palette = "Set2") +   labs(     title = "LDL Cholesterol by Gender",     x = "Gender",     y = "LDL Cholesterol (mg/dL)"   ) +   theme_minimal() +   theme(     plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),     axis.title = element_text(size = 14),     axis.text.x = element_text(size = 12),     axis.text.y = element_text(size = 12),     legend.position = "none"   )}</code></p>
+<p><code>{r}  # Descriptive Summary by Gender summary_stats &lt;- clean_data %&gt;%   group_by(gender) %&gt;%   summarise(     mean_LDL = mean(LDL, na.rm = TRUE),     sd_LDL = sd(LDL, na.rm = TRUE),     median_LDL = median(LDL, na.rm = TRUE),     n = n()   ) print(summary_stats)  # Perform Independent Samples t-test with 90% CI t_test_results &lt;- t.test(LDL ~ gender, data = clean_data,                           var.equal = FALSE, conf.level = 0.90)  # Print t-test Results print(t_test_results)  # Extract and Print the 90% Confidence Interval conf_interval &lt;- t_test_results$conf.int message("90% Confidence Interval for the Difference in Means: ",          round(conf_interval[1], 2), " to ", round(conf_interval[2], 2))}</code></p>
+<p>As we can see from the graph and t-test, there is no significant difference in mean LDL between males and females.</p>
+<p><strong>#Analysis 2: Compare 3-6 Means/Medians Using Independent Samples</strong></p>
+<p>Is there a difference in mean LDL-C according to marital status?</p>
+<p>We will use the following code (graph first, then ANOVA):</p>
+<p><code>{r} # Load necessary libraries library(tidyverse)  # Create Boxplot with Smaller and More Subtle Dots ggplot(clean_data, aes(x = marital_status, y = LDL, fill = marital_status)) +   geom_boxplot(alpha = 0.7, outlier.color = "red", outlier.size = 2) +   geom_jitter(aes(color = marital_status), width = 0.1, alpha = 0.2, size = 1) +   scale_fill_brewer(palette = "Set2") +   scale_color_brewer(palette = "Set2") +   labs(     title = "LDL Cholesterol by Marital Status",     x = "Marital Status",     y = "LDL Cholesterol (mg/dL)"   ) +   theme_minimal() +   theme(     plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),     axis.title = element_text(size = 14),     axis.text.x = element_text(size = 10, angle = 25, hjust = 1),     axis.text.y = element_text(size = 12),     legend.position = "none"   )}</code></p>
+<p><code>{r} # Load necessary libraries library(tidyverse)  # Perform One-Way ANOVA anova_results &lt;- aov(LDL ~ marital_status, data = clean_data)  # Display ANOVA Summary summary(anova_results)  # Perform Tukey's Honest Significant Difference (HSD) Test tukey_results &lt;- TukeyHSD(anova_results, conf.level = 0.90)  # Display Tukey HSD Results print(tukey_results)}</code></p>
+<p>The ANOVA results indicate a statistically significant difference in mean LDL levels across marital status groups (<strong>p &lt; 0.001</strong>). Post-hoc Tukey HSD tests reveal that individuals who are <strong>Never married</strong> have significantly lower mean LDL levels compared to both <strong>Married/Living with Partner</strong> and <strong>Widowed/Divorced/Separated</strong> groups, with <strong>p &lt; 0.01</strong> for both comparisons.</p>
+<p><strong>#Analysis 3: Create and analyze a&nbsp;2×2&nbsp;table</strong></p>
+<p>Research Question: Is there an association between obesity status (obese vs.&nbsp;non-obese) and males/females?</p>
+<p>Note: obesity is defined as BMI &gt;or=30.</p>
+<p>We will use the following code (visualization first, then Chi Square):</p>
+<p><code>{r} # Load necessary libraries library(tidyverse)  # Create Stacked Bar Chart ggplot(clean_data, aes(x = gender, fill = obesity)) +   geom_bar(position = "fill", alpha = 0.8) +   scale_y_continuous(labels = scales::percent_format()) +   scale_fill_brewer(palette = "Set2") +   labs(     title = "Proportion of Obesity by Gender",     x = "Gender",     y = "Proportion",     fill = "Obesity Status"   ) +   theme_minimal() +   theme(     plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),     axis.title = element_text(size = 14),     axis.text = element_text(size = 12),     legend.title = element_text(size = 12),     legend.text = element_text(size = 10)   )}</code></p>
+<p><code>{r} obesity_gender_table &lt;- table(clean_data$obesity, clean_data$gender)  # Convert the table to a data frame with percentages obesity_gender_df &lt;- as.data.frame(obesity_gender_table) %&gt;%   group_by(Var2) %&gt;%  # Group by gender   mutate(     Percentage = Freq / sum(Freq) * 100   )  # Display the table with counts and percentages obesity_gender_df %&gt;%   rename(     Obesity_Status = Var1,     Gender = Var2,     Count = Freq   ) %&gt;%   arrange(Gender, Obesity_Status)}</code></p>
+<p><code>{r} # Create a contingency table obesity_gender_table &lt;- table(clean_data$obesity, clean_data$gender)  # Perform Chi-Square Test chi_square_results &lt;- chisq.test(obesity_gender_table)  # Display Chi-Square Test Results print(chi_square_results)}</code></p>
+<p>The Chi-Square test results indicate a statistically significant association between obesity status and gender (<strong>X² = 31.852</strong>, <strong>p &lt; 0.001</strong>). This suggests that the distribution of obesity differs significantly between males and females (females tend to have a higher prevalence of obesity)</p>
+<p><strong>#Analysis 4: Create and analyze a&nbsp;J×K&nbsp;table, where&nbsp;2≤J≤5&nbsp;and&nbsp;3≤K≤5</strong></p>
+<p>Research Question: Is there an association between race/ethnicity and marital status (3 levels)?</p>
+<p>We will use the following code (visualization first, then Chi Square statistical testing):</p>
+<p><code>{r} # Load necessary libraries library(tidyverse)  # Create Stacked Bar Chart ggplot(clean_data, aes(x = race_ethnicity, fill = marital_status)) +   geom_bar(position = "fill", alpha = 0.8) +   scale_y_continuous(labels = scales::percent_format()) +   scale_fill_brewer(palette = "Set2") +   labs(     title = "Marital Status by Race/Ethnicity",     x = "Race/Ethnicity",     y = "Proportion",     fill = "Marital Status"   ) +   theme_minimal() +   theme(     plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),     axis.title = element_text(size = 14),     axis.text.x = element_text(size = 10, angle = 25, hjust = 1),     axis.text.y = element_text(size = 12),     legend.title = element_text(size = 12),     legend.text = element_text(size = 10)   )}</code></p>
+<p><code>{r}  # Load necessary libraries library(tidyverse)  # Remove missing values clean_data &lt;- clean_data %&gt;%   filter(!race_ethnicity %in% c("77", "99")) %&gt;%   filter(!marital_status %in% c("77", "99"))  # Create Contingency Table race_marital_table &lt;- table(clean_data$race_ethnicity, clean_data$marital_status)  # Convert Table to Data Frame race_marital_df &lt;- as.data.frame(race_marital_table) %&gt;%   group_by(Var1) %&gt;%  # Group by race_ethnicity   mutate(     Percentage = Freq / sum(Freq) * 100   )  # Display the Table with Counts and Percentages race_marital_df %&gt;%   rename(     Race_Ethnicity = Var1,     Marital_Status = Var2,     Count = Freq   ) %&gt;%   arrange(Race_Ethnicity, Marital_Status) %&gt;%   mutate(     Percentage = paste0(round(Percentage, 2), "%")   )}</code></p>
+<p><code>{r} # Load necessary libraries library(tidyverse)  # Create Contingency Table race_marital_table &lt;- table(clean_data$race_ethnicity, clean_data$marital_status)  # Perform Chi-Square Test chi_square_results &lt;- chisq.test(race_marital_table)  # Display Results print("Chi-Square Test Results:") print(chi_square_results)}</code></p>
+<p>The Chi-Square test results (<strong>X² = 389.26</strong>, <strong>df = 8</strong>, <strong>p &lt; 0.001</strong>) indicate a statistically significant association between <strong>marital status</strong> and <strong>race/ethnicity</strong>. This suggests that marital status distribution varies meaningfully across different racial/ethnic groups.</p>
 
 
 

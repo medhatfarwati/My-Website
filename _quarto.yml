@@ -10,11 +10,16 @@ website:
         href: index.qmd
       - text: About
         href: about.qmd
-      - text: Data Analysis
-        href: analysis.qmd
+      - text: Education & Training
+        href: Education_Training.qmd
+      - text: Study 1 Analyses
+        href: study 1 analyses.qmd
+      - text: Study 2 Analyses
+        href: study 2 analyses.qmd
 
 format:
   html:
     theme: cosmo
     toc: true
     toc-depth: 2
+
