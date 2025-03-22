@@ -137,18 +137,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="./blog/Blog.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./dashboard.html"> 
-<span class="menu-text">Dashboard</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./study 1 analyses.html"> 
-<span class="menu-text">Study 1 Analyses</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link active" href="./study 2 analyses.html" aria-current="page"> 
-<span class="menu-text">Study 2 Analyses</span></a>
-  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -464,10 +452,15 @@ F-statistic: 0.4523 on 1 and 2653 DF,  p-value: 0.5013</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code># Comparison of Model Performance Indices
 
-Name | Model |  AIC (weights) | AICc (weights) |  BIC (weights) |        R2 |  R2 (adj.) |  RMSE | Sigma
---------------------------------------------------------------------------------------------------------
-m1   |    lm | 1874.6 (0.953) | 1874.6 (0.952) | 1933.4 (&lt;.001) |     0.008 |      0.005 | 0.343 | 0.344
-m2   |    lm | 1880.6 (0.047) | 1880.6 (0.048) | 1898.2 (&gt;.999) | 1.705e-04 | -2.064e-04 | 0.344 | 0.345</code></pre>
+Name | Model |  AIC (weights) | AICc (weights) |  BIC (weights) |        R2
+---------------------------------------------------------------------------
+m1   |    lm | 1874.6 (0.953) | 1874.6 (0.952) | 1933.4 (&lt;.001) |     0.008
+m2   |    lm | 1880.6 (0.047) | 1880.6 (0.048) | 1898.2 (&gt;.999) | 1.705e-04
+
+Name |  R2 (adj.) |  RMSE | Sigma
+---------------------------------
+m1   |      0.005 | 0.343 | 0.344
+m2   | -2.064e-04 | 0.344 | 0.345</code></pre>
 </div>
 </div>
 <p>Interpretation:</p>
