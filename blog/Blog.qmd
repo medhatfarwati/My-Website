@@ -1,17 +1,15 @@
 ---
-date: "2024-12-12"
-categories: ["Research", "Data Analysis"]
+date: "2025-03-22"
+categories: ["Research", "Data Science"]
 format:
   html:
     toc: true
 ---
 
-# Building My Data Analysis Dashboard  
+# The Art and Responsibility of Peer Review in Modern Science
 
-Creating a data analysis dashboard has been one of the most rewarding parts of my work. The goal was to design an interactive platform that presents key insights from Project B in a visually engaging and intuitive way. I built the dashboard using Quarto, R, and various data visualization libraries like **ggplot2** and **patchwork**. This allowed me to integrate statistical models, data summaries, and interactive charts into a single, user-friendly interface.
+One of the most important takeaways from reading **How To Be A Modern Scientist by Jeff Leek** was learning how to approach the peer review process with integrity, structure, and purpose. As someone specializing in cardiology, I understand that evidence-based medicine relies heavily on the quality of published research. Peer review is more than just a gatekeeping step in academic publishing — it's a responsibility to ensure that scientific claims are supported by solid methodology and accurate data. **Leek distills a scientific paper into four key elements: the methodology, the data, the results, and the claims.** As a reviewer, the goal is to critically evaluate the first three to determine whether they justifiably support the fourth. This framework helped clarify how I can approach my role as a reviewer with clarity and rigor.
 
-The development process began with **data cleaning and preparation** using the NHANES dataset. After filtering and transforming variables of interest, I framed several hypotheses to test through the dashboard. These included examining how BMI predicts LDL cholesterol, adjusting for factors such as gender, marital status, and race/ethnicity. The dashboard was designed to allow users to explore these relationships through interactive filters and visual summaries.
+What stood out most is that reviewing a paper isn’t about being a judge or gatekeeper, but rather a contributor to the scientific conversation. The process requires balancing skepticism with fairness — assuming the authors acted in good faith while still carefully checking for unsupported claims, flawed methods, or poor data reporting. In cardiology, where misinterpretations can have real-world implications for patient care, this level of scrutiny is essential. **Leek emphasizes the need to “show your work” by referencing figures, pointing to paragraphs, and providing evidence for each criticism.** I also appreciated the emphasis on professionalism: reviews should never include personal attacks or unnecessary requests, like demanding citations to one's own work. The goal is to improve the paper, not to grandstand.
 
-**Key analyses performed** included regression modeling, hypothesis testing, and data visualizations such as histograms, boxplots, and scatterplots. By embedding these interactive features, the dashboard enables users to explore the data in depth. While some hypotheses, like BMI’s effect on LDL cholesterol, yielded limited predictive power, the process provided valuable insights into the complexities of real-world health data.
-
-Building this dashboard was not just a technical challenge but also a creative endeavor. It combined my passion for research with an appreciation for design and storytelling through data. As I continue developing the dashboard, I hope it will serve as both a personal learning project and a useful tool for sharing research findings in a more accessible and engaging way. Stay tuned for future updates and enhancements!
+Another critical point was learning how to structure a constructive and useful review. **A good review includes a summary of the paper in your own words, a list of major and minor issues, and specific feedback on typos if applicable.** It's not just about what’s wrong with a paper but how clearly and fairly that feedback is communicated. For journals in evidence-based medicine, this structure allows authors to revise effectively, ensuring that only high-quality and clinically relevant findings make it to publication. Ultimately, I walked away with a better understanding of how to evaluate papers not just for their scientific merit, but for their impact on practice and policy — something that’s especially crucial in fast-moving and high-stakes fields like cardiology.

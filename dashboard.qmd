@@ -1,0 +1,50 @@
+---
+title: "Data Dashboard"
+format: 
+  html: 
+    dashboard: true
+editor: visual
+---
+
+# Data Dashboard
+
+Welcome to my interactive data dashboard! Use the controls below to explore data analyses and results from Project B.
+
+------------------------------------------------------------------------
+
+## **Filters**
+
+```{r}
+# Load Libraries
+library(shiny)
+library(tidyverse)
+
+# Filter UI Controls
+inputPanel(
+  selectInput("variable", "Select Variable:", choices = c("BMI", "LDL")),
+  sliderInput("range", "Select Range:", min = 0, max = 100, value = c(20, 80))
+)
+```
+
+## **Visualizations: BMI vs LDL**
+
+```{r}
+# Create Dynamic Plot
+renderPlot({
+  filtered_data <- complete_data %>%
+    filter(
+      !!sym(input$variable) >= input$range[1],
+      !!sym(input$variable) <= input$range[2]
+    )
+  
+  ggplot(filtered_data, aes_string(x = "BMI", y = "LDL")) +
+    geom_point(color = "skyblue", alpha = 0.7) +
+    labs(
+      title = "Relationship between BMI and LDL",
+      x = "BMI (kg/m^2)",
+      y = "LDL (mg/dL)"
+    ) +
+    theme_minimal()
+})
+
+```

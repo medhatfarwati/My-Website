@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "Medhat Farwati's Website"
+  title: "Medhat Farwati's Website/Dashboard"
   navbar:
     left:
       - text: Home
@@ -14,10 +14,10 @@ website:
         href: Education_Training.qmd
       - text: Blog
         href: blog/Blog.qmd
-      - text: Study 1 Analyses
-        href: study 1 analyses.qmd
-      - text: Study 2 Analyses
-        href: study 2 analyses.qmd
+    # - text: Study 1 Analyses
+    #   href: study 1 analyses.qmd
+    # - text: Study 2 Analyses
+    #   href: study 2 analyses.qmd
 
 format:
   html:
